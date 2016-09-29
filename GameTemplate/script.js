@@ -1,5 +1,6 @@
 var stage, preload, queue, loader, gameState;
 
+var canvas;
 var FPS = 30;
 var CANVAS_WIDTH = 800;
 var CANVAS_HEIGHT = 600;
@@ -15,13 +16,15 @@ var gameStates = {
 }
 
 var titleScreen, backgroundScreen, instructionScreen, gameoverScreen;
-var IButton, TButton;
+var IButton, TButton, SButton;
+var minutesLabel, secondsLabel, totalSeconds, context;
 
 function setupCanvas() {
-    var canvas = document.getElementById("game"); //get canvas with id='game'
+    canvas = document.getElementById("game"); //get canvas with id='game'
     canvas.width = CANVAS_WIDTH;
     canvas.height = CANVAS_HEIGHT;
     stage = new createjs.Stage(canvas); //makes stage object from the canvas
+    
 }
 
 function loadFiles() {
@@ -38,6 +41,7 @@ function loadComplete(evt) {
     gameoverScreen = new createjs.Bitmap(queue.getResult("gameover"));
     IButton = new createjs.Bitmap(queue.getResult("IButton"));
     TButton = new createjs.Bitmap(queue.getResult("TButton"));
+    SButton = new createjs.Bitmap(queue.getResult("SButton"));
     startLoop();
 }
 
@@ -91,13 +95,15 @@ function loop() {
     gameState = gameStates.HOLD;
 
     manifest = [
+        { src: "/assets/scripts/timer.js" },
         { src: "/assets/scripts/build_title.js" },
         { src: "/assets/images/title.png", id: "title" },
+        { src: "/assets/images/GameOver.png", id: "gameover" },
+        { src: "/assets/images/buttonTitle.png", id: "TButton" },
+        { src: "/assets/images/buttonStart.png", id: "SButton" },
         { src: "/assets/images/gameArea.png", id: "background" },
         { src: "/assets/images/Instruction.png", id: "instructions" },
-        { src: "/assets/images/GameOver.png", id: "gameover" },
-        { src: "/assets/images/buttonInstructions.png", id: "IButton" },
-        { src: "/assets/images/buttonTitle.png", id: "TButton" }
+        { src: "/assets/images/buttonInstructions.png", id: "IButton" }
     ];
 
     setupCanvas();
