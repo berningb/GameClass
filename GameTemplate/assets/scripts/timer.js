@@ -1,15 +1,19 @@
 function timer() {
-        minutesLabel = document.getElementById("minutes");
-        secondsLabel = document.getElementById("seconds");
-        totalSeconds = 0;
-        setInterval(setTime, 1000);
+    inGameTime = (new Date()).getTime();
+    var sec = ((inGameTime - myTime) / 1000).toFixed(1);
+    // ++totalSeconds;
+    // var sec = pad(totalSeconds % 60)
+    context.text = "Time: " + (sec) + " sec";
+    checkTime(sec);
+    // console.log(sec);
+}
 
-        function setTime()
-        {
-            ++totalSeconds;
-            secondsLabel.innerHTML = pad(totalSeconds%60);
-            minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
-            context.Text = "sex";
-        }
+function resetGameTime() {
+    gameTime = 0;
+}
 
+function checkTime(seconds) {
+    if (seconds >= 5) {
+        state = gameStates.GAME_OVER;
+    }
 }
